@@ -13,12 +13,15 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-            // .allowedOriginPatterns("*")
-            .allowedOrigins("http://181.131.99.9:3000", "http://localhost:3000")
+            .allowedOriginPatterns("*")
+            // .allowedOrigins("http://181.131.99.9:3000")
             .allowedMethods("PUT", "DELETE", "POST", "GET")
-            .allowedHeaders("CustomAuth", "Authorization", "header3", "Origin", "Access-Control-Allow-Origin", "Content-Type",
-            "Accept", "Origin, Accept", "X-Requested-With",
-            "Access-Control-Request-Method", "Access-Control-Request-Headers")
+
+            // .allowedHeaders("CustomAuth", "Authorization", "header3", "Origin", "Access-Control-Allow-Origin", "Content-Type",
+            // "Accept", "Origin, Accept", "X-Requested-With",
+            // "Access-Control-Request-Method", "Access-Control-Request-Headers")
+            // .allowedHeaders("*")
+
             .exposedHeaders("CustomAuth", "Origin", "Content-Type", "Accept", "Authorization",
             "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
             .allowCredentials(true);

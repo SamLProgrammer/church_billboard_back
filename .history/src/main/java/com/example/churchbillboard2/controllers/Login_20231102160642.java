@@ -2,6 +2,7 @@ package com.example.churchbillboard2.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.churchbillboard2.DTOs.FamilyEventDTO;
 import com.example.churchbillboard2.DTOs.LoginDTO;
 import com.example.churchbillboard2.DTOs.MonthFamilyEventsWrapper;
 import com.example.churchbillboard2.security.SessionToken;
@@ -35,9 +36,7 @@ public class Login {
     }
 
     @PostMapping(value = "/login")
-    public SessionToken getMethodName(@RequestBody LoginDTO user, HttpServletRequest request, HttpSession session) {
-        String origin = request.getHeader("Origin");
-        System.out.println("Origin: " + origin);
+    public SessionToken getMethodName(@RequestBody LoginDTO user, HttpSession session) {
         SessionToken sessionToken = (userService.getUserByUserName(user) == null) ? new SessionToken("Invalid User")
                 : new SessionToken(null);
         sessionTokenWrapper.setSessionToken(sessionToken.getSessionToken());
@@ -49,13 +48,8 @@ public class Login {
             HttpSession session) {
                 Cookie[] cookies = request.getCookies();
 
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        String cookieName = cookie.getName();
-                        String cookieValue = cookie.getValue();
-                        System.out.println("Cookie Name: " + cookieName);
-                        System.out.println("Cookie Value: " + cookieValue);
-                    }
+                for (Cookie cookie : cookies) {
+                    System.out.println(cookie);
                 }
                 
         return (sessionTokenWrapper.validateToken(headerValue))
