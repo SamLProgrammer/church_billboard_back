@@ -1,0 +1,16 @@
+package com.example.churchbillboard2.models;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "family_event_types")
+public class FamilyEventType {
+    @Id
+    private char id;
+
+    @Column(name = "family_event_type")
+    private String familyEventType;
+}
