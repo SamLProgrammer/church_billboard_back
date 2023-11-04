@@ -50,7 +50,6 @@ public class Login {
     @PostMapping("/months")
     public AvailableMonthsWrapper getMethodName(@RequestHeader("CustomAuth") String headerValue,
             HttpSession session) {
-                System.out.println("=================================");
                 System.out.println(sessionTokenWrapper.getSessionToken());
                 System.out.println(headerValue);
                 System.out.println(session.getId());
@@ -60,8 +59,7 @@ public class Login {
     }
 
     @PostMapping(value="/monthData")
-    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month, HttpSession session) {
-        System.out.println(session.getId());
+    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month) {
         return familyEventService.getFamilyEventsByDateWithEventType(month);
     }
 
@@ -72,7 +70,7 @@ public class Login {
     
 
     @GetMapping(value = "/")
-    public String getHome(HttpSession session) {
-        return session.getId();
+    public String getHome() {
+        return "Hi From Home";
     }
 }

@@ -2,6 +2,9 @@ package com.example.churchbillboard2.security;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 
 public class SessionToken {

@@ -1,7 +1,6 @@
 package com.example.churchbillboard2.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.churchbillboard2.DTOs.LoginDTO;
 import com.example.churchbillboard2.DTOs.MonthFamilyEventsWrapper;
@@ -14,10 +13,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/")
@@ -39,29 +40,33 @@ public class Login {
     public SessionToken getMethodName(@RequestBody LoginDTO user, HttpServletRequest request, HttpSession session) {
         String origin = request.getHeader("Origin");
         System.out.println("Origin: " + origin);
-        System.out.println(session.getId());
         SessionToken sessionToken = (userService.getUserByUserName(user) == null) ? new SessionToken("Invalid User")
-        : new SessionToken(null);
+                : new SessionToken(null);
         sessionTokenWrapper.setSessionToken(sessionToken.getSessionToken());
-        System.out.println(sessionToken.getSessionToken());
         return sessionToken;
     }
-    
+
     @PostMapping("/months")
-    public AvailableMonthsWrapper getMethodName(@RequestHeader("CustomAuth") String headerValue,
+    public AvailableMonthsWrapper getMethodName(@RequestHeader("CustomAuth") String headerValue, HttpServletRequest request,
             HttpSession session) {
-                System.out.println("=================================");
-                System.out.println(sessionTokenWrapper.getSessionToken());
-                System.out.println(headerValue);
-                System.out.println(session.getId());
-            return (sessionTokenWrapper.validateToken(headerValue))
+                Cookie[] cookies = request.getCookies();
+
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        String cookieName = cookie.getName();
+                        String cookieValue = cookie.getValue();
+                        System.out.println("Cookie Name: " + cookieName);
+                        System.out.println("Cookie Value: " + cookieValue);
+                    }
+                }
+                
+        return (sessionTokenWrapper.validateToken(headerValue))
                 ? new AvailableMonthsWrapper(timeManager.availableMonths())
                 : new AvailableMonthsWrapper("Not Valid Session");
     }
 
     @PostMapping(value="/monthData")
-    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month, HttpSession session) {
-        System.out.println(session.getId());
+    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month) {
         return familyEventService.getFamilyEventsByDateWithEventType(month);
     }
 
@@ -72,7 +77,7 @@ public class Login {
     
 
     @GetMapping(value = "/")
-    public String getHome(HttpSession session) {
-        return session.getId();
+    public String getHome() {
+        return "Hi From Home";
     }
 }

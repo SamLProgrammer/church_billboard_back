@@ -39,29 +39,23 @@ public class Login {
     public SessionToken getMethodName(@RequestBody LoginDTO user, HttpServletRequest request, HttpSession session) {
         String origin = request.getHeader("Origin");
         System.out.println("Origin: " + origin);
-        System.out.println(session.getId());
         SessionToken sessionToken = (userService.getUserByUserName(user) == null) ? new SessionToken("Invalid User")
-        : new SessionToken(null);
+                : new SessionToken(null);
         sessionTokenWrapper.setSessionToken(sessionToken.getSessionToken());
-        System.out.println(sessionToken.getSessionToken());
         return sessionToken;
     }
-    
+
     @PostMapping("/months")
     public AvailableMonthsWrapper getMethodName(@RequestHeader("CustomAuth") String headerValue,
             HttpSession session) {
-                System.out.println("=================================");
-                System.out.println(sessionTokenWrapper.getSessionToken());
-                System.out.println(headerValue);
-                System.out.println(session.getId());
-            return (sessionTokenWrapper.validateToken(headerValue))
+                
+        return (sessionTokenWrapper.validateToken(headerValue))
                 ? new AvailableMonthsWrapper(timeManager.availableMonths())
                 : new AvailableMonthsWrapper("Not Valid Session");
     }
 
     @PostMapping(value="/monthData")
-    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month, HttpSession session) {
-        System.out.println(session.getId());
+    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month) {
         return familyEventService.getFamilyEventsByDateWithEventType(month);
     }
 
@@ -72,7 +66,7 @@ public class Login {
     
 
     @GetMapping(value = "/")
-    public String getHome(HttpSession session) {
-        return session.getId();
+    public String getHome() {
+        return "Hi From Home";
     }
 }

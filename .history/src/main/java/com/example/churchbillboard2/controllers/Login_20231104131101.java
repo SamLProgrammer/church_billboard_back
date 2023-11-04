@@ -60,8 +60,7 @@ public class Login {
     }
 
     @PostMapping(value="/monthData")
-    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month, HttpSession session) {
-        System.out.println(session.getId());
+    public MonthFamilyEventsWrapper postMethodName(@RequestBody String month) {
         return familyEventService.getFamilyEventsByDateWithEventType(month);
     }
 
