@@ -51,7 +51,7 @@ public class Login {
 
     // devop
     @PostMapping("/months")
-    public AvailableMonthsWrapper getMethodName(HttpServletResponse response) {
+    public String getMethodName(HttpServletResponse response) {
         return new AvailableMonthsWrapper(timeManager.availableMonths());
     }
     // System.out.println("=================================");
