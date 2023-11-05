@@ -49,7 +49,8 @@ public class Login {
 
     // devops
     @PostMapping("/months")
-    public AvailableMonthsWrapper getMethodName() {
+    public AvailableMonthsWrapper getMethodName(@RequestHeader("CustomAuth") String headerValue,
+            HttpSession session) {
         System.out.println("jeeeeeeeeey");
         return null;
     }
