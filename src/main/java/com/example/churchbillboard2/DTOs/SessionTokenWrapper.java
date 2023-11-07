@@ -1,10 +1,8 @@
-package com.example.churchbillboard2.controllers;
+package com.example.churchbillboard2.DTOs;
 
 import java.io.Serializable;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
