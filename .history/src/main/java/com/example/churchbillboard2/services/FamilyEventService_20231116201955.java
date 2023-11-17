@@ -121,7 +121,7 @@ public class FamilyEventService {
                     .filter(n -> n.getFamilyEventTypeId() == 'C')
                     .collect(Collectors.toList());
 
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, supperList, snackList, cleaningList);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, supperList, snackList, cleaningList);
         } else {
             monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, true);
         }

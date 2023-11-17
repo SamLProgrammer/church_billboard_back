@@ -106,7 +106,6 @@ public class FamilyEventService {
         ArrayList<FamilyEventDTO> queriedList = parseQueryToFamilyEventDTOs(
                 familyEventRepository.getFamilyEventsBetween(startDate, endDate));
         ArrayList<String> sundaysList = createSundaysListForMonth(month);
-        ArrayList<String> saturdaysList = createSaturdaysListForMonth(month);
 
         if (queriedList.size() > 0) {
             List<FamilyEventDTO> supperList = queriedList.stream()
@@ -117,11 +116,7 @@ public class FamilyEventService {
                     .filter(n -> n.getFamilyEventTypeId() == 'S')
                     .collect(Collectors.toList());
 
-            List<FamilyEventDTO> cleaningList = queriedList.stream()
-                    .filter(n -> n.getFamilyEventTypeId() == 'C')
-                    .collect(Collectors.toList());
-
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, supperList, snackList, cleaningList);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, supperList, snackList);
         } else {
             monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, true);
         }
@@ -158,14 +153,14 @@ public class FamilyEventService {
 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        int saturdayPivot = (7 - dayOfWeek) + dayOfMonth;
-        int cuttedDaysRange = calendar2.get(Calendar.DAY_OF_MONTH) - saturdayPivot;
+        int sundayPivot = (7 - dayOfWeek) + dayOfMonth;
+        int cuttedDaysRange = calendar2.get(Calendar.DAY_OF_MONTH) - sundayPivot;
 
         int sevenDivisor = 0;
         do {
-            calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
+            calendar.set(Calendar.DAY_OF_MONTH, sundayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
-            saturdayPivot += 7;
+            sundayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);
 

@@ -9,7 +9,6 @@ public class MonthFamilyEventsWrapper {
     private List<FamilyEventDTO> snackList;
     private List<FamilyEventDTO> cleaningList;
     private List<String> sundaysList;
-    private List<String> saturdaysList;
     private Boolean empty;
     private String error;
 
@@ -22,13 +21,11 @@ public class MonthFamilyEventsWrapper {
         this.empty = empty;
     }
 
-    public MonthFamilyEventsWrapper(ArrayList<String> sundaysList, ArrayList<String> saturdaysList, List<FamilyEventDTO> supperList,
+    public MonthFamilyEventsWrapper(ArrayList<String> sundaysList, List<FamilyEventDTO> supperList,
             List<FamilyEventDTO> snackList, List<FamilyEventDTO> cleaningList) {
         this.sundaysList = sundaysList;
-        this.saturdaysList = saturdaysList;
         this.supperList = supperList;
         this.snackList = snackList;
-        this.cleaningList = cleaningList;
     }
 
     public MonthFamilyEventsWrapper() {
@@ -65,22 +62,6 @@ public class MonthFamilyEventsWrapper {
 
     public void setSundaysList(List<String> sundaysList) {
         this.sundaysList = sundaysList;
-    }
-
-    public List<String> getSaturdaysList() {
-        return saturdaysList;
-    }
-
-    public void setSaturdaysList(List<String> saturdaysList) {
-        this.saturdaysList = saturdaysList;
-    }
-
-    public List<FamilyEventDTO> getCleaningList() {
-        return cleaningList;
-    }
-
-    public void setCleaningList(List<FamilyEventDTO> cleaningList) {
-        this.cleaningList = cleaningList;
     }
 
     public String getError() {

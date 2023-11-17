@@ -106,7 +106,6 @@ public class FamilyEventService {
         ArrayList<FamilyEventDTO> queriedList = parseQueryToFamilyEventDTOs(
                 familyEventRepository.getFamilyEventsBetween(startDate, endDate));
         ArrayList<String> sundaysList = createSundaysListForMonth(month);
-        ArrayList<String> saturdaysList = createSaturdaysListForMonth(month);
 
         if (queriedList.size() > 0) {
             List<FamilyEventDTO> supperList = queriedList.stream()
@@ -117,11 +116,7 @@ public class FamilyEventService {
                     .filter(n -> n.getFamilyEventTypeId() == 'S')
                     .collect(Collectors.toList());
 
-            List<FamilyEventDTO> cleaningList = queriedList.stream()
-                    .filter(n -> n.getFamilyEventTypeId() == 'C')
-                    .collect(Collectors.toList());
-
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, supperList, snackList, cleaningList);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, supperList, snackList);
         } else {
             monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, true);
         }
