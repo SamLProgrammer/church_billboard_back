@@ -163,17 +163,12 @@ public class FamilyEventService {
         System.out.println("dayOfMonth");
         System.out.println(dayOfMonth);
         int saturdayPivot = (7 - dayOfWeek) + dayOfMonth;
-        System.out.println("saturdayPivot");
-        System.out.println(saturdayPivot);
         int cuttedDaysRange = calendar2.get(Calendar.DAY_OF_MONTH) - saturdayPivot;
-        System.out.println("cuttedDaysRange");
-        System.out.println(cuttedDaysRange);
 
         int sevenDivisor = 0;
         do {
             calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
-            System.out.println(sdf.format(calendar.getTime()));
             saturdayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);
