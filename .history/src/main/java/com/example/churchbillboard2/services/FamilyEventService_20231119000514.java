@@ -162,7 +162,7 @@ public class FamilyEventService {
         calendar2.setTime(lastDayOfMonth);
 
         int firstDayOfMonthInt = calendar.get(Calendar.DAY_OF_MONTH);
-        int lastDayOfMonthInt = calendar2.get(Calendar.DAY_OF_MONTH) + 1;
+        int lastDayOfMonthInt = calendar2.get(Calendar.DAY_OF_MONTH);
 
         while(firstDayOfMonthInt < lastDayOfMonthInt) {
             calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonthInt);
@@ -193,6 +193,7 @@ public class FamilyEventService {
         do {
             calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
+            System.out.println(sdf.format(calendar.getTime()));
             saturdayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);

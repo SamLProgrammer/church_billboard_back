@@ -193,6 +193,7 @@ public class FamilyEventService {
         do {
             calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
+            System.out.println(sdf.format(calendar.getTime()));
             saturdayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);

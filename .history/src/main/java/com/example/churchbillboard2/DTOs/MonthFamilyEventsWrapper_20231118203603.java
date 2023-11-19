@@ -30,7 +30,6 @@ public class MonthFamilyEventsWrapper {
             List<FamilyEventDTO> snackList, List<FamilyEventDTO> cleaningList, List<FamilyEventDTO> birthDaysList) {
         this.sundaysList = sundaysList;
         this.saturdaysList = saturdaysList;
-        this.monthDaysList = monthDaysList;
         this.supperList = supperList;
         this.snackList = snackList;
         this.cleaningList = cleaningList;
@@ -63,22 +62,6 @@ public class MonthFamilyEventsWrapper {
 
     public void setEmpty(Boolean empty) {
         this.empty = empty;
-    }
-
-    public List<String> getMonthDaysList() {
-        return monthDaysList;
-    }
-
-    public void setMonthDaysList(List<String> monthDaysList) {
-        this.monthDaysList = monthDaysList;
-    }
-
-    public List<FamilyEventDTO> getBirthDaysList() {
-        return birthDaysList;
-    }
-
-    public void setBirthDaysList(List<FamilyEventDTO> birthDaysList) {
-        this.birthDaysList = birthDaysList;
     }
 
     public List<String> getSundaysList() {

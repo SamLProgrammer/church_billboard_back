@@ -107,7 +107,6 @@ public class FamilyEventService {
                 familyEventRepository.getFamilyEventsBetween(startDate, endDate));
         ArrayList<String> sundaysList = createSundaysListForMonth(month);
         ArrayList<String> saturdaysList = createSaturdaysListForMonth(month);
-        ArrayList<String> monthDaysList = createSpecificMonthDaysList(month);
 
         if (queriedList.size() > 0) {
             List<FamilyEventDTO> supperList = queriedList.stream()
@@ -122,13 +121,9 @@ public class FamilyEventService {
                     .filter(n -> n.getFamilyEventTypeId() == 'C')
                     .collect(Collectors.toList());
 
-            List<FamilyEventDTO> birthDaysList = queriedList.stream()
-            .filter(n -> n.getFamilyEventTypeId() == 'B')
-            .collect(Collectors.toList());
-
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, monthDaysList, supperList, snackList, cleaningList, birthDaysList);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, supperList, snackList, cleaningList);
         } else {
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, monthDaysList, true);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, true);
         }
 
         return monthFamilyEventsWrapper;
@@ -149,29 +144,6 @@ public class FamilyEventService {
         return familyEventDTOs;
     }
 
-    private ArrayList<String> createSpecificMonthDaysList(int month) {
-        ArrayList<String> daysList = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date firstDayOfMonth = firstDayOfMonth(month);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(firstDayOfMonth);
-
-        Date lastDayOfMonth = lastDayOfMonth(month);
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.setTime(lastDayOfMonth);
-
-        int firstDayOfMonthInt = calendar.get(Calendar.DAY_OF_MONTH);
-        int lastDayOfMonthInt = calendar2.get(Calendar.DAY_OF_MONTH) + 1;
-
-        while(firstDayOfMonthInt < lastDayOfMonthInt) {
-            calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonthInt);
-            daysList.add(sdf.format(calendar.getTime()));
-            firstDayOfMonthInt++;
-        }
-
-        return daysList;
-    }
     private ArrayList<String> createSaturdaysListForMonth(int month) {
         ArrayList<String> sundaysList = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -193,6 +165,7 @@ public class FamilyEventService {
         do {
             calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
+            System.out.println(sdf.format(calendar.getTime()));
             saturdayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);

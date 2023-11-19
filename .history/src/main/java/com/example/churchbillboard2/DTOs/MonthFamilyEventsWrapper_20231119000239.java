@@ -65,22 +65,6 @@ public class MonthFamilyEventsWrapper {
         this.empty = empty;
     }
 
-    public List<String> getMonthDaysList() {
-        return monthDaysList;
-    }
-
-    public void setMonthDaysList(List<String> monthDaysList) {
-        this.monthDaysList = monthDaysList;
-    }
-
-    public List<FamilyEventDTO> getBirthDaysList() {
-        return birthDaysList;
-    }
-
-    public void setBirthDaysList(List<FamilyEventDTO> birthDaysList) {
-        this.birthDaysList = birthDaysList;
-    }
-
     public List<String> getSundaysList() {
         return sundaysList;
     }

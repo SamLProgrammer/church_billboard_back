@@ -122,11 +122,7 @@ public class FamilyEventService {
                     .filter(n -> n.getFamilyEventTypeId() == 'C')
                     .collect(Collectors.toList());
 
-            List<FamilyEventDTO> birthDaysList = queriedList.stream()
-            .filter(n -> n.getFamilyEventTypeId() == 'B')
-            .collect(Collectors.toList());
-
-            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, monthDaysList, supperList, snackList, cleaningList, birthDaysList);
+            monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, monthDaysList, supperList, snackList, cleaningList);
         } else {
             monthFamilyEventsWrapper = new MonthFamilyEventsWrapper(sundaysList, saturdaysList, monthDaysList, true);
         }
@@ -162,12 +158,11 @@ public class FamilyEventService {
         calendar2.setTime(lastDayOfMonth);
 
         int firstDayOfMonthInt = calendar.get(Calendar.DAY_OF_MONTH);
-        int lastDayOfMonthInt = calendar2.get(Calendar.DAY_OF_MONTH) + 1;
+        int lastDayOfMonthInt = calendar2.get(Calendar.DAY_OF_MONTH);
 
         while(firstDayOfMonthInt < lastDayOfMonthInt) {
-            calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonthInt);
             daysList.add(sdf.format(calendar.getTime()));
-            firstDayOfMonthInt++;
+            calendar.set(Calendar.DAY_OF_MONTH, firstDayOfMonthInt++);
         }
 
         return daysList;
@@ -193,6 +188,7 @@ public class FamilyEventService {
         do {
             calendar.set(Calendar.DAY_OF_MONTH, saturdayPivot);
             sundaysList.add(sdf.format(calendar.getTime()));
+            System.out.println(sdf.format(calendar.getTime()));
             saturdayPivot += 7;
             sevenDivisor += 7;
         } while (sevenDivisor <= cuttedDaysRange);
