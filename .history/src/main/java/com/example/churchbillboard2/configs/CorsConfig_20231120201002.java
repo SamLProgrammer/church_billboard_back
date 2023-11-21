@@ -13,8 +13,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
 
         registry.addMapping("/**")
-                // .allowedOrigins("https://app.mysqlconnectornoderaged.com", "http://localhost:3000")
-                .allowedOriginPatterns("*")
+                .allowedOrigins("https://app.mysqlconnectornoderaged.com", "http://localhost:3000", "http://localhost")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .exposedHeaders("CustomAuth", "Content-Type", "Accept",
                         "Authorization",
